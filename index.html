@@ -24,6 +24,7 @@
       <a href="#galerie" data-fr="Galerie" data-en="Gallery">Galerie</a>
       <a href="#equipements" data-fr="Équipements" data-en="Amenities">Équipements</a>
       <a href="#avis" data-fr="Avis" data-en="Reviews">Avis</a>
+      <a href="#disponibilites" data-fr="Disponibilités" data-en="Availability">Disponibilités</a>
       <a href="#localisation" data-fr="Localisation" data-en="Location">Localisation</a>
       <a href="#hote" data-fr="Hôte" data-en="Host">Hôte</a>
     </nav>
@@ -160,6 +161,24 @@
     </div>
   </section>
 
+  <!-- AVAILABILITY -->
+  <section class="section" id="disponibilites">
+    <div class="container">
+      <h2 data-fr="Disponibilités" data-en="Availability">Disponibilités</h2>
+      <p class="section-lead" data-fr="Calendrier synchronisé en direct avec Airbnb. Les prix exacts et la réservation se font sur Airbnb." data-en="Calendar synced live with Airbnb. Exact pricing and booking happen on Airbnb.">Calendrier synchronisé en direct avec Airbnb. Les prix exacts et la réservation se font sur Airbnb.</p>
+      <div class="calendar-legend">
+        <span><i class="dot dot-free"></i><span data-fr="Disponible" data-en="Available">Disponible</span></span>
+        <span><i class="dot dot-busy"></i><span data-fr="Réservé" data-en="Booked">Réservé</span></span>
+        <span><i class="dot dot-past"></i><span data-fr="Passé" data-en="Past">Passé</span></span>
+      </div>
+      <div id="calendar-status" class="calendar-status" data-fr="Chargement du calendrier…" data-en="Loading calendar…">Chargement du calendrier…</div>
+      <div class="calendar-grid" id="calendar-grid"></div>
+      <div class="calendar-cta">
+        <a class="btn btn-primary" id="cta-calendar" href="#" target="_blank" rel="noopener" data-fr="Voir les tarifs et réserver sur Airbnb" data-en="See rates and book on Airbnb">Voir les tarifs et réserver sur Airbnb</a>
+      </div>
+    </div>
+  </section>
+
   <!-- LOCATION -->
   <section class="section" id="localisation">
     <div class="container two-col">
@@ -263,5 +282,6 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/reviews.js"></script>
 <script src="js/script.js"></script>
+<script src="js/availability.js"></script>
 </body>
 </html>
