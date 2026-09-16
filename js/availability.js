@@ -3,6 +3,8 @@
 
   const AIRBNB_URL = "https://www.airbnb.fr/rooms/53414747";
   const MONTHS_TO_SHOW = 3;
+  const MAX_MONTHS_AHEAD = 24; // don't let visitors page further than 2 years out
+  let monthOffset = 0;
 
   const MONTH_NAMES = {
     fr: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
@@ -86,10 +88,36 @@
     grid.innerHTML = "";
     const now = new Date();
     const todayIso = isoDay(now);
+    const lang = currentLang();
+    let firstLabel = "";
+    let lastLabel = "";
+
     for (let i = 0; i < MONTHS_TO_SHOW; i++) {
-      const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + i, 1));
+      const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + monthOffset + i, 1));
       grid.appendChild(renderMonth(d.getUTCFullYear(), d.getUTCMonth(), lastBusySet, todayIso));
+      const label = `${MONTH_NAMES[lang][d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+      if (i === 0) firstLabel = label;
+      lastLabel = label;
     }
+
+    const rangeLabel = document.getElementById("cal-range-label");
+    if (rangeLabel) rangeLabel.textContent = firstLabel === lastLabel ? firstLabel : `${firstLabel} — ${lastLabel}`;
+
+    const prevBtn = document.getElementById("cal-prev");
+    const nextBtn = document.getElementById("cal-next");
+    if (prevBtn) prevBtn.disabled = monthOffset <= 0;
+    if (nextBtn) nextBtn.disabled = monthOffset >= MAX_MONTHS_AHEAD - MONTHS_TO_SHOW;
+  }
+
+  function setupCalendarNav() {
+    const prevBtn = document.getElementById("cal-prev");
+    const nextBtn = document.getElementById("cal-next");
+    if (prevBtn) prevBtn.addEventListener("click", () => {
+      if (monthOffset > 0) { monthOffset--; renderCalendar(); }
+    });
+    if (nextBtn) nextBtn.addEventListener("click", () => {
+      if (monthOffset < MAX_MONTHS_AHEAD - MONTHS_TO_SHOW) { monthOffset++; renderCalendar(); }
+    });
   }
 
   async function loadAvailability() {
@@ -121,7 +149,10 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", loadAvailability);
+  document.addEventListener("DOMContentLoaded", () => {
+    setupCalendarNav();
+    loadAvailability();
+  });
 
   // Re-render month names / weekday letters when the language toggle is used.
   document.addEventListener("DOMContentLoaded", () => {

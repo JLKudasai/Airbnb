@@ -187,6 +187,16 @@ ul { padding: 0; margin: 0; list-style: none; }
 .dot-past { background: #d8d2c2; }
 .calendar-status { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 18px; }
 .calendar-status.is-error { color: var(--accent-dark); }
+.calendar-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 22px; }
+.cal-nav-btn {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: #fff;
+  color: var(--ink); font-size: 1.3rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.cal-nav-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+.cal-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.cal-nav-btn:disabled:hover { background: #fff; border-color: var(--line); }
+.cal-range-label { font-weight: 600; font-size: 0.95rem; min-width: 200px; text-align: center; text-transform: capitalize; }
 .calendar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 2.4rem; }
 @media (max-width: 900px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } }
