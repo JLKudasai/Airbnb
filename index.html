@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bungalow Serenity — Terres Basses, Saint-Martin</title>
+<meta name="description" content="Bungalow Serenity : location de vacances à Terres Basses, Saint-Martin. Note 4,99/5 sur 82 avis, Superhôte Airbnb.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌴</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark">🌴</span>
+      <span class="brand-name">Bungalow Serenity</span>
+    </a>
+    <nav class="main-nav" id="main-nav">
+      <a href="#galerie" data-fr="Galerie" data-en="Gallery">Galerie</a>
+      <a href="#equipements" data-fr="Équipements" data-en="Amenities">Équipements</a>
+      <a href="#avis" data-fr="Avis" data-en="Reviews">Avis</a>
+      <a href="#localisation" data-fr="Localisation" data-en="Location">Localisation</a>
+      <a href="#hote" data-fr="Hôte" data-en="Host">Hôte</a>
+    </nav>
+    <div class="header-actions">
+      <button id="lang-toggle" class="lang-toggle" aria-label="Switch language" type="button">
+        <span class="lang-fr active">FR</span><span class="lang-sep">/</span><span class="lang-en">EN</span>
+      </button>
+      <a class="btn btn-primary btn-small" id="cta-header" href="#" target="_blank" rel="noopener" data-fr="Réserver" data-en="Book now">Réserver</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-media" id="hero-media"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <p class="eyebrow" data-fr="Logement entier · Bungalow · Les Terres Basses, Saint-Martin" data-en="Entire home · Bungalow · Terres Basses, Saint-Martin">Logement entier · Bungalow · Les Terres Basses, Saint-Martin</p>
+      <h1 data-fr="Bungalow Serenity" data-en="Bungalow Serenity">Bungalow Serenity</h1>
+      <p class="hero-sub" data-fr="Quiétude, vue lagon et plages secrètes sur la pointe la plus préservée de Saint-Martin." data-en="Quiet, lagoon views and secret beaches on the most unspoiled tip of Saint-Martin.">Quiétude, vue lagon et plages secrètes sur la pointe la plus préservée de Saint-Martin.</p>
+      <div class="hero-badges">
+        <span class="badge"><strong>4,99</strong> ★ <span data-fr="· 82 avis" data-en="· 82 reviews">· 82 avis</span></span>
+        <span class="badge" data-fr="🏆 Coup de cœur voyageurs" data-en="🏆 Guest favorite">🏆 Coup de cœur voyageurs</span>
+        <span class="badge" data-fr="Superhôte · Patricia" data-en="Superhost · Patricia">Superhôte · Patricia</span>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-primary" id="cta-hero" href="#" target="_blank" rel="noopener" data-fr="Vérifier les disponibilités" data-en="Check availability">Vérifier les disponibilités</a>
+        <a class="btn btn-ghost" href="#galerie" data-fr="Voir les photos" data-en="View photos">Voir les photos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <section class="stats-strip">
+    <div class="container stats-inner">
+      <div class="stat"><span class="stat-num">2</span><span data-fr="voyageurs" data-en="guests">voyageurs</span></div>
+      <div class="stat"><span class="stat-num">1</span><span data-fr="chambre" data-en="bedroom">chambre</span></div>
+      <div class="stat"><span class="stat-num">2</span><span data-fr="lits" data-en="beds">lits</span></div>
+      <div class="stat"><span class="stat-num">1</span><span data-fr="salle de bain" data-en="bathroom">salle de bain</span></div>
+      <div class="stat"><span class="stat-num">58m²</span><span data-fr="+ terrasse 37m²" data-en="+ 37m² terrace">+ terrasse 37m²</span></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section" id="galerie">
+    <div class="container">
+      <h2 data-fr="Galerie photos" data-en="Photo gallery">Galerie photos</h2>
+      <p class="section-lead" data-fr="46 photos du bungalow, de la terrasse et des environs." data-en="46 photos of the bungalow, the terrace and the surroundings.">46 photos du bungalow, de la terrasse et des environs.</p>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+  </section>
+
+  <!-- DESCRIPTION -->
+  <section class="section section-alt" id="description">
+    <div class="container two-col">
+      <div>
+        <h2 data-fr="L'endroit" data-en="The space">L'endroit</h2>
+        <p data-fr="Le Bungalow Serenity est situé dans la résidence sécurisée des Terres Basses. 58m² avec une terrasse de 37m², à 5 min de la plage, entouré d'une végétation luxuriante, il vous apportera quiétude et douceur avec sa vue lagon."
+           data-en="Bungalow Serenity is located within the secure Terres Basses residence. At 58m² with a 37m² terrace, just 5 minutes from the beach and surrounded by lush greenery, it offers peace and softness with its lagoon view.">
+          Le Bungalow Serenity est situé dans la résidence sécurisée des Terres Basses. 58m² avec une terrasse de 37m², à 5 min de la plage, entouré d'une végétation luxuriante, il vous apportera quiétude et douceur avec sa vue lagon.
+        </p>
+        <p data-fr="Entièrement climatisé, il comprend une grande chambre avec lit king size, une cuisine entièrement équipée, un grand salon avec Smart TV et accès wifi. La salle de bain comprend une double vasque avec rangements, une grande douche et une machine à laver."
+           data-en="Fully air-conditioned, it includes a large bedroom with a king-size bed, a fully equipped kitchen, and a large living room with a Smart TV and wifi. The bathroom features a double vanity with storage, a large shower and a washing machine.">
+          Entièrement climatisé, il comprend une grande chambre avec lit king size, une cuisine entièrement équipée, un grand salon avec Smart TV et accès wifi. La salle de bain comprend une double vasque avec rangements, une grande douche et une machine à laver.
+        </p>
+        <div class="sleep-blocks">
+          <div class="sleep-block">
+            <h3 data-fr="Chambre" data-en="Bedroom">Chambre</h3>
+            <p data-fr="1 lit king size" data-en="1 king-size bed">1 lit king size</p>
+          </div>
+          <div class="sleep-block">
+            <h3 data-fr="Salon" data-en="Living room">Salon</h3>
+            <p data-fr="1 canapé convertible" data-en="1 sofa bed">1 canapé convertible</p>
+          </div>
+        </div>
+      </div>
+      <div class="highlight-cards">
+        <div class="highlight-card">
+          <span class="hc-icon">🛡️</span>
+          <h3 data-fr="Procédure d'arrivée irréprochable" data-en="Flawless check-in">Procédure d'arrivée irréprochable</h3>
+          <p data-fr="Les voyageurs récents ont apprécié que leur séjour débute sans accroc." data-en="Recent guests loved starting their stay without a hitch.">Les voyageurs récents ont apprécié que leur séjour débute sans accroc.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="hc-icon">🌿</span>
+          <h3 data-fr="Environnement magnifique" data-en="Beautiful surroundings">Environnement magnifique</h3>
+          <p data-fr="Les voyageurs aiment l'emplacement pittoresque de ce logement." data-en="Guests love the picturesque location of this home.">Les voyageurs aiment l'emplacement pittoresque de ce logement.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="hc-icon">⭐</span>
+          <h3 data-fr="Top 5% des logements" data-en="Top 5% of homes">Top 5% des logements</h3>
+          <p data-fr="Ce logement fait partie des 5% de logements préférés sur Airbnb." data-en="This home is in the top 5% of most-loved homes on Airbnb.">Ce logement fait partie des 5% de logements préférés sur Airbnb.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMENITIES -->
+  <section class="section" id="equipements">
+    <div class="container">
+      <h2 data-fr="Ce que propose ce logement" data-en="What this place offers">Ce que propose ce logement</h2>
+      <p class="section-lead" data-fr="63 équipements, organisés par catégorie." data-en="63 amenities, organized by category.">63 équipements, organisés par catégorie.</p>
+      <div class="amenities-grid" id="amenities-grid"></div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section section-alt" id="avis">
+    <div class="container">
+      <div class="reviews-heading">
+        <div>
+          <h2><span data-fr="Ce que disent les voyageurs" data-en="What guests are saying">Ce que disent les voyageurs</span></h2>
+          <p class="section-lead" data-fr="82 avis, tous récupérés de l'annonce Airbnb." data-en="82 reviews, all pulled from the Airbnb listing.">82 avis, tous récupérés de l'annonce Airbnb.</p>
+        </div>
+        <div class="rating-summary">
+          <span class="rating-big">4,99</span>
+          <div class="rating-stars">★★★★★</div>
+          <span class="rating-count" data-fr="82 avis" data-en="82 reviews">82 avis</span>
+        </div>
+      </div>
+
+      <div class="rating-bars" id="rating-bars"></div>
+
+      <div class="reviews-marquee-wrap">
+        <div class="reviews-marquee" id="reviews-track-1"></div>
+      </div>
+      <div class="reviews-marquee-wrap reverse">
+        <div class="reviews-marquee" id="reviews-track-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="section" id="localisation">
+    <div class="container two-col">
+      <div>
+        <h2 data-fr="Où se situe le logement" data-en="Where you'll be">Où se situe le logement</h2>
+        <p data-fr="Les Terres Basses, Collectivité de Saint-Martin. Situées sur la pointe sud-ouest de l'île en partie française, les Terres Basses forment une résidence fermée et sécurisée regroupant des propriétés d'1 hectare chacune."
+           data-en="Terres Basses, Collectivité de Saint-Martin. Located on the south-western tip of the French side of the island, Terres Basses is a gated, secure residential area with properties spanning roughly 1 hectare each.">
+          Les Terres Basses, Collectivité de Saint-Martin. Situées sur la pointe sud-ouest de l'île en partie française, les Terres Basses forment une résidence fermée et sécurisée regroupant des propriétés d'1 hectare chacune.
+        </p>
+        <p data-fr="Vous aurez accès à pied à plusieurs des plus belles plages de Saint-Martin comme Baie Rouge, Baie aux Prunes (Plum Bay) et Baie Longue. Vous serez à 10 min en voiture de l'aéroport international Princess Juliana, 10 min des casinos et de la vie nocturne du côté hollandais, et à 10 min de Marigot, la capitale du côté français."
+           data-en="You'll have walking access to several of Saint-Martin's most beautiful beaches, such as Baie Rouge, Baie aux Prunes (Plum Bay) and Baie Longue. You'll be a 10-minute drive from Princess Juliana International Airport, 10 minutes from the casinos and nightlife on the Dutch side, and 10 minutes from Marigot, the capital of the French side.">
+          Vous aurez accès à pied à plusieurs des plus belles plages de Saint-Martin comme Baie Rouge, Baie aux Prunes (Plum Bay) et Baie Longue. Vous serez à 10 min en voiture de l'aéroport international Princess Juliana, 10 min des casinos et de la vie nocturne du côté hollandais, et à 10 min de Marigot, la capitale du côté français.
+        </p>
+        <ul class="location-list">
+          <li>🏖️ <span data-fr="Baie Rouge, Baie aux Prunes, Baie Longue — accès à pied" data-en="Baie Rouge, Baie aux Prunes, Baie Longue — walking access">Baie Rouge, Baie aux Prunes, Baie Longue — accès à pied</span></li>
+          <li>✈️ <span data-fr="Aéroport Princess Juliana — 10 min en voiture" data-en="Princess Juliana Airport — 10 min drive">Aéroport Princess Juliana — 10 min en voiture</span></li>
+          <li>🏛️ <span data-fr="Marigot — 10 min en voiture" data-en="Marigot — 10 min drive">Marigot — 10 min en voiture</span></li>
+        </ul>
+      </div>
+      <div id="map" class="map-box"></div>
+    </div>
+  </section>
+
+  <!-- HOST -->
+  <section class="section section-alt" id="hote">
+    <div class="container host-inner">
+      <div class="host-avatar">P</div>
+      <div>
+        <h2 data-fr="Faites connaissance avec votre hôte" data-en="Meet your host">Faites connaissance avec votre hôte</h2>
+        <h3>Patricia</h3>
+        <p class="host-tags" data-fr="Superhôte · 5 ans en tant qu'hôte · 82 évaluations · 4,99 en note globale" data-en="Superhost · 5 years hosting · 82 reviews · 4.99 overall rating">Superhôte · 5 ans en tant qu'hôte · 82 évaluations · 4,99 en note globale</p>
+        <p data-fr="Les Superhôtes sont des hôtes expérimentés qui bénéficient de très bonnes évaluations et qui s'engagent à offrir d'excellents séjours aux voyageurs. Co-hôte : Carole Isabelle."
+           data-en="Superhosts are experienced hosts with great reviews who are committed to providing excellent stays for guests. Co-host: Carole Isabelle.">
+          Les Superhôtes sont des hôtes expérimentés qui bénéficient de très bonnes évaluations et qui s'engagent à offrir d'excellents séjours aux voyageurs. Co-hôte : Carole Isabelle.
+        </p>
+        <div class="host-meta">
+          <span data-fr="✔️ Taux de réponse : 100%" data-en="✔️ Response rate: 100%">✔️ Taux de réponse : 100%</span>
+          <span data-fr="⚡ Répond dans l'heure" data-en="⚡ Responds within an hour">⚡ Répond dans l'heure</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOOD TO KNOW -->
+  <section class="section" id="infos">
+    <div class="container">
+      <h2 data-fr="À savoir" data-en="Good to know">À savoir</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3 data-fr="Règlement intérieur" data-en="House rules">Règlement intérieur</h3>
+          <ul>
+            <li data-fr="Arrivée : entre 15h00 et 20h00" data-en="Check-in: between 3:00 PM and 8:00 PM">Arrivée : entre 15h00 et 20h00</li>
+            <li data-fr="Départ avant 11h00" data-en="Checkout before 11:00 AM">Départ avant 11h00</li>
+            <li data-fr="2 voyageurs maximum" data-en="2 guests maximum">2 voyageurs maximum</li>
+            <li data-fr="Séjours de 28 jours ou plus autorisés" data-en="Stays of 28+ nights allowed">Séjours de 28 jours ou plus autorisés</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3 data-fr="Conditions d'annulation" data-en="Cancellation policy">Conditions d'annulation</h3>
+          <p data-fr="Cette réservation n'est pas remboursable. Consultez les conditions complètes de l'hôte sur Airbnb pour en savoir plus." data-en="This reservation is non-refundable. Check the host's full policy on Airbnb for details.">Cette réservation n'est pas remboursable. Consultez les conditions complètes de l'hôte sur Airbnb pour en savoir plus.</p>
+        </div>
+        <div class="info-card">
+          <h3 data-fr="Sécurité et logement" data-en="Safety & property">Sécurité et logement</h3>
+          <ul>
+            <li data-fr="Logement de plain-pied, résidence protégée" data-en="Ground-floor home, gated residence">Logement de plain-pied, résidence protégée</li>
+            <li data-fr="Ne convient pas aux enfants ni aux bébés" data-en="Not suitable for children or infants">Ne convient pas aux enfants ni aux bébés</li>
+            <li data-fr="Extincteur et trousse de premiers secours" data-en="Fire extinguisher and first aid kit">Extincteur et trousse de premiers secours</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container final-cta-inner">
+      <h2 data-fr="Prêt·e pour un séjour serein à Saint-Martin ?" data-en="Ready for a serene stay in Saint-Martin?">Prêt·e pour un séjour serein à Saint-Martin ?</h2>
+      <p data-fr="Vérifiez les disponibilités et réservez directement sur Airbnb." data-en="Check availability and book directly on Airbnb.">Vérifiez les disponibilités et réservez directement sur Airbnb.</p>
+      <a class="btn btn-primary btn-large" id="cta-final" href="#" target="_blank" rel="noopener" data-fr="Réserver sur Airbnb" data-en="Book on Airbnb">Réserver sur Airbnb</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> Bungalow Serenity — Terres Basses, Saint-Martin.</p>
+    <a href="#" id="cta-footer" target="_blank" rel="noopener" data-fr="Voir l'annonce sur Airbnb" data-en="View listing on Airbnb">Voir l'annonce sur Airbnb</a>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox-nav prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
+  <img src="" alt="" id="lightbox-img">
+  <button class="lightbox-nav next" id="lightbox-next" aria-label="Next">&#8250;</button>
+  <div class="lightbox-count" id="lightbox-count"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/reviews.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
