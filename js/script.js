@@ -2,58 +2,81 @@
   "use strict";
 
   const AIRBNB_URL = "https://www.airbnb.fr/rooms/53414747";
+  const SVG_NS = "http://www.w3.org/2000/svg";
+
+  function buildIcon(name, extraClass) {
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("class", "icon " + (extraClass || ""));
+    const use = document.createElementNS(SVG_NS, "use");
+    use.setAttributeNS("http://www.w3.org/1999/xlink", "href", "images/icons.svg#" + name);
+    use.setAttribute("href", "images/icons.svg#" + name);
+    svg.appendChild(use);
+    return svg;
+  }
+
   const TOTAL_PHOTOS = 46;
   const PHOTOS = Array.from({ length: TOTAL_PHOTOS }, (_, i) => `images/photo-${String(i + 1).padStart(2, "0")}.jpeg`);
 
+  const ICON_ANIM = {
+    "ic-wave": "icon-sway", "ic-valley": "icon-float", "ic-pan": "icon-float", "ic-fridge": "icon-float",
+    "ic-oven": "icon-float", "ic-coffee": "icon-float", "ic-wine": "icon-float", "ic-fire": "icon-flicker",
+    "ic-cutlery": "icon-float", "ic-basket": "icon-float", "ic-bed": "icon-float", "ic-pillow": "icon-float",
+    "ic-iron": "icon-wiggle", "ic-lock": "icon-float", "ic-door": "icon-float", "ic-hairdryer": "icon-wiggle",
+    "ic-bottle": "icon-float", "ic-shower": "icon-float", "ic-tv": "icon-float", "ic-speaker": "icon-pulse",
+    "ic-books": "icon-float", "ic-snow": "icon-spin-slow", "ic-tree": "icon-sway", "ic-chair": "icon-float",
+    "ic-umbrella": "icon-sway", "ic-wifi": "icon-pulse", "ic-extinguisher": "icon-float", "ic-car": "icon-float",
+    "ic-shield": "icon-wiggle", "ic-calendar": "icon-float", "ic-broom": "icon-wiggle", "ic-key": "icon-bob"
+  };
+
   const AMENITIES = [
     { cat: { fr: "Vues panoramiques", en: "Views" }, items: [
-      { fr: "Vue sur la baie", en: "Bay view", icon: "🌊" },
-      { fr: "Vue sur la mer", en: "Sea view", icon: "🌊" },
-      { fr: "Vue sur la vallée", en: "Valley view", icon: "🏞️" }
+      { fr: "Vue sur la baie", en: "Bay view", icon: "ic-wave" },
+      { fr: "Vue sur la mer", en: "Sea view", icon: "ic-wave" },
+      { fr: "Vue sur la vallée", en: "Valley view", icon: "ic-valley" }
     ]},
     { cat: { fr: "Cuisine et salle à manger", en: "Kitchen & dining" }, items: [
-      { fr: "Cuisine entièrement équipée", en: "Fully equipped kitchen", icon: "🍳" },
-      { fr: "Réfrigérateur, congélateur", en: "Fridge, freezer", icon: "🧊" },
-      { fr: "Four à micro-ondes, four", en: "Microwave, oven", icon: "🍽️" },
-      { fr: "Cafetière filtre & Nespresso", en: "Filter coffee & Nespresso maker", icon: "☕" },
-      { fr: "Bouilloire, grille-pain, verres à vin", en: "Kettle, toaster, wine glasses", icon: "🍷" },
-      { fr: "Barbecue et ustensiles", en: "BBQ & utensils", icon: "🔥" },
-      { fr: "Table à manger", en: "Dining table", icon: "🍴" }
+      { fr: "Cuisine entièrement équipée", en: "Fully equipped kitchen", icon: "ic-pan" },
+      { fr: "Réfrigérateur, congélateur", en: "Fridge, freezer", icon: "ic-fridge" },
+      { fr: "Four à micro-ondes, four", en: "Microwave, oven", icon: "ic-oven" },
+      { fr: "Cafetière filtre & Nespresso", en: "Filter coffee & Nespresso maker", icon: "ic-coffee" },
+      { fr: "Bouilloire, grille-pain, verres à vin", en: "Kettle, toaster, wine glasses", icon: "ic-wine" },
+      { fr: "Barbecue et ustensiles", en: "BBQ & utensils", icon: "ic-fire" },
+      { fr: "Table à manger", en: "Dining table", icon: "ic-cutlery" }
     ]},
     { cat: { fr: "Chambre et linge", en: "Bedroom & laundry" }, items: [
-      { fr: "Lave-linge gratuit", en: "Free washer", icon: "🧺" },
-      { fr: "Linge de lit en coton égyptien", en: "Egyptian cotton linens", icon: "🛏️" },
-      { fr: "Oreillers et couvertures supplémentaires", en: "Extra pillows & blankets", icon: "🛌" },
-      { fr: "Fer à repasser, étendoir", en: "Iron, drying rack", icon: "🧷" },
-      { fr: "Coffre-fort, moustiquaire", en: "Safe, mosquito net", icon: "🔒" },
-      { fr: "Dressing, placard, armoire", en: "Closet & wardrobe space", icon: "🚪" }
+      { fr: "Lave-linge gratuit", en: "Free washer", icon: "ic-basket" },
+      { fr: "Linge de lit en coton égyptien", en: "Egyptian cotton linens", icon: "ic-bed" },
+      { fr: "Oreillers et couvertures supplémentaires", en: "Extra pillows & blankets", icon: "ic-pillow" },
+      { fr: "Fer à repasser, étendoir", en: "Iron, drying rack", icon: "ic-iron" },
+      { fr: "Coffre-fort, moustiquaire", en: "Safe, mosquito net", icon: "ic-lock" },
+      { fr: "Dressing, placard, armoire", en: "Closet & wardrobe space", icon: "ic-door" }
     ]},
     { cat: { fr: "Salle de bain", en: "Bathroom" }, items: [
-      { fr: "Sèche-cheveux", en: "Hair dryer", icon: "💨" },
-      { fr: "Produits de bain 100% naturels", en: "100% natural bath products", icon: "🧴" },
-      { fr: "Eau chaude, gel douche", en: "Hot water, shower gel", icon: "🚿" }
+      { fr: "Sèche-cheveux", en: "Hair dryer", icon: "ic-hairdryer" },
+      { fr: "Produits de bain 100% naturels", en: "100% natural bath products", icon: "ic-bottle" },
+      { fr: "Eau chaude, gel douche", en: "Hot water, shower gel", icon: "ic-shower" }
     ]},
     { cat: { fr: "Divertissement & confort", en: "Entertainment & comfort" }, items: [
-      { fr: "TV HD avec Netflix, Prime Video", en: "HD TV with Netflix, Prime Video", icon: "📺" },
-      { fr: "Système audio Bluetooth", en: "Bluetooth sound system", icon: "🔊" },
-      { fr: "Tapis de yoga, livres", en: "Yoga mat, books", icon: "📚" },
-      { fr: "Climatisation + ventilateur de plafond", en: "AC + ceiling fan", icon: "❄️" }
+      { fr: "TV HD avec Netflix, Prime Video", en: "HD TV with Netflix, Prime Video", icon: "ic-tv" },
+      { fr: "Système audio Bluetooth", en: "Bluetooth sound system", icon: "ic-speaker" },
+      { fr: "Tapis de yoga, livres", en: "Yoga mat, books", icon: "ic-books" },
+      { fr: "Climatisation + ventilateur de plafond", en: "AC + ceiling fan", icon: "ic-snow" }
     ]},
     { cat: { fr: "Extérieur", en: "Outdoor" }, items: [
-      { fr: "Patio / balcon privé, arrière-cour clôturée", en: "Private patio/balcony, fenced backyard", icon: "🌳" },
-      { fr: "Mobilier extérieur, cuisine extérieure", en: "Outdoor furniture & kitchen", icon: "🪑" },
-      { fr: "Chaises longues, matériel de plage", en: "Loungers & beach gear", icon: "🏖️" }
+      { fr: "Patio / balcon privé, arrière-cour clôturée", en: "Private patio/balcony, fenced backyard", icon: "ic-tree" },
+      { fr: "Mobilier extérieur, cuisine extérieure", en: "Outdoor furniture & kitchen", icon: "ic-chair" },
+      { fr: "Chaises longues, matériel de plage", en: "Loungers & beach gear", icon: "ic-umbrella" }
     ]},
     { cat: { fr: "Internet, sécurité & parking", en: "Internet, safety & parking" }, items: [
-      { fr: "Wifi + espace de travail dédié", en: "Wifi + dedicated workspace", icon: "💻" },
-      { fr: "Extincteur, trousse de premiers secours", en: "Fire extinguisher, first aid kit", icon: "🧯" },
-      { fr: "2 places de parking gratuites sur place", en: "2 free on-site parking spots", icon: "🚗" },
-      { fr: "Entrée privée, résidence protégée", en: "Private entrance, gated residence", icon: "🛡️" }
+      { fr: "Wifi + espace de travail dédié", en: "Wifi + dedicated workspace", icon: "ic-wifi" },
+      { fr: "Extincteur, trousse de premiers secours", en: "Fire extinguisher, first aid kit", icon: "ic-extinguisher" },
+      { fr: "2 places de parking gratuites sur place", en: "2 free on-site parking spots", icon: "ic-car" },
+      { fr: "Entrée privée, résidence protégée", en: "Private entrance, gated residence", icon: "ic-shield" }
     ]},
     { cat: { fr: "Services", en: "Services" }, items: [
-      { fr: "Séjours longue durée (28+ nuits)", en: "Long-term stays (28+ nights)", icon: "🗓️" },
-      { fr: "Service de ménage disponible (supplément)", en: "Cleaning service available (extra fee)", icon: "🧹" },
-      { fr: "Clés remises par l'hôte", en: "Keys handed over by host", icon: "🔑" }
+      { fr: "Séjours longue durée (28+ nuits)", en: "Long-term stays (28+ nights)", icon: "ic-calendar" },
+      { fr: "Service de ménage disponible (supplément)", en: "Cleaning service available (extra fee)", icon: "ic-broom" },
+      { fr: "Clés remises par l'hôte", en: "Keys handed over by host", icon: "ic-key" }
     ]}
   ];
 
@@ -180,15 +203,12 @@
       const ul = document.createElement("ul");
       cat.items.forEach((item) => {
         const li = document.createElement("li");
-        const icoSpan = document.createElement("span");
-        icoSpan.className = "a-ico";
-        icoSpan.textContent = item.icon;
+        li.appendChild(buildIcon(item.icon, "icon-sm a-ico " + (ICON_ANIM[item.icon] || "icon-float")));
         const labelSpan = document.createElement("span");
         labelSpan.className = "amenity-item-label";
         labelSpan.setAttribute("data-fr", item.fr);
         labelSpan.setAttribute("data-en", item.en);
         labelSpan.textContent = item.fr;
-        li.appendChild(icoSpan);
         li.appendChild(labelSpan);
         ul.appendChild(li);
       });
