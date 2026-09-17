@@ -121,6 +121,11 @@
     document.querySelectorAll(".amenity-cat-title").forEach((el) => {
       el.textContent = lang === "fr" ? el.getAttribute("data-fr") : el.getAttribute("data-en");
     });
+    document.querySelectorAll("#gallery-grid img[data-alt-fr]").forEach((img) => {
+      const alt = lang === "fr" ? img.getAttribute("data-alt-fr") : img.getAttribute("data-alt-en");
+      img.alt = alt;
+      img.title = alt;
+    });
   }
 
   function metaLabel(meta) {
@@ -155,8 +160,12 @@
       img.src = src;
       img.loading = "lazy";
       const cap = (typeof PHOTO_CAPTIONS !== "undefined" && PHOTO_CAPTIONS[i]) ? PHOTO_CAPTIONS[i] : null;
-      img.alt = cap ? cap.fr : `Bungalow Serenity — photo ${i + 1}`;
-      if (cap) img.title = cap.fr;
+      const altFr = cap ? cap.fr : `Bungalow Serenity — photo ${i + 1}`;
+      const altEn = cap ? cap.en : `Bungalow Serenity — photo ${i + 1}`;
+      img.dataset.altFr = altFr;
+      img.dataset.altEn = altEn;
+      img.alt = lang === "fr" ? altFr : altEn;
+      img.title = img.alt;
       const zoom = document.createElement("span");
       zoom.className = "g-zoom";
       zoom.appendChild(buildIcon("ic-zoom", "icon-md"));
