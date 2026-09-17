@@ -134,6 +134,7 @@
       lang = lang === "fr" ? "en" : "fr";
       localStorage.setItem("bs_lang", lang);
       applyLang();
+      if (document.getElementById("lightbox").classList.contains("open")) updateLightbox();
     });
   }
 
@@ -153,7 +154,9 @@
       const img = document.createElement("img");
       img.src = src;
       img.loading = "lazy";
-      img.alt = `Bungalow Serenity — photo ${i + 1}`;
+      const cap = (typeof PHOTO_CAPTIONS !== "undefined" && PHOTO_CAPTIONS[i]) ? PHOTO_CAPTIONS[i] : null;
+      img.alt = cap ? cap.fr : `Bungalow Serenity — photo ${i + 1}`;
+      if (cap) img.title = cap.fr;
       const zoom = document.createElement("span");
       zoom.className = "g-zoom";
       zoom.appendChild(buildIcon("ic-zoom", "icon-md"));
@@ -186,6 +189,8 @@
   function updateLightbox() {
     document.getElementById("lightbox-img").src = PHOTOS[lbIndex];
     document.getElementById("lightbox-count").textContent = `${lbIndex + 1} / ${PHOTOS.length}`;
+    const cap = (typeof PHOTO_CAPTIONS !== "undefined") ? PHOTO_CAPTIONS[lbIndex] : null;
+    document.getElementById("lightbox-caption").textContent = cap ? cap[lang] : "";
   }
   function setupLightbox() {
     document.getElementById("lightbox-close").addEventListener("click", () => document.getElementById("lightbox").classList.remove("open"));
