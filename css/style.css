@@ -84,6 +84,7 @@ ul { padding: 0; margin: 0; list-style: none; }
 .brand-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .brand-mark { width: 24px; height: 24px; color: var(--lagoon); flex-shrink: 0; }
 .main-nav { display: flex; gap: 24px; }
+.main-nav-cta { display: none; }
 .main-nav a { font-size: 0.88rem; font-weight: 500; color: var(--ink-soft); }
 .main-nav a:hover { color: var(--accent); }
 .header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
@@ -449,7 +450,7 @@ ul { padding: 0; margin: 0; list-style: none; }
   .main-nav a:not(.btn):hover, .main-nav a:not(.btn):active { background: var(--accent-soft); color: var(--accent-dark); }
   .main-nav a:not(.btn):hover::after, .main-nav a:not(.btn):active::after { opacity: 1; transform: translateX(0); }
   .main-nav a:not(.btn):not(:last-of-type) { border-bottom: 1px solid var(--line); border-radius: 16px; }
-  .main-nav .main-nav-cta { margin-top: 6px; justify-content: center; }
+  .main-nav .main-nav-cta { display: flex; margin-top: 6px; justify-content: center; }
   .nav-toggle { display: flex; }
   #cta-header { display: none; }
 }
