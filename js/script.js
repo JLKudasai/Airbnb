@@ -148,20 +148,31 @@
     const grid = document.getElementById("gallery-grid");
     const VISIBLE = 8;
     PHOTOS.forEach((src, i) => {
+      const item = document.createElement("div");
+      item.className = "g-item reveal";
       const img = document.createElement("img");
       img.src = src;
       img.loading = "lazy";
       img.alt = `Bungalow Serenity — photo ${i + 1}`;
-      img.addEventListener("click", () => openLightbox(i));
-      if (i >= VISIBLE) img.classList.add("gallery-hidden");
-      grid.appendChild(img);
+      const zoom = document.createElement("span");
+      zoom.className = "g-zoom";
+      zoom.appendChild(buildIcon("ic-zoom", "icon-md"));
+      item.appendChild(img);
+      item.appendChild(zoom);
+      item.addEventListener("click", () => openLightbox(i));
+      if (i >= VISIBLE) item.classList.add("gallery-hidden");
+      grid.appendChild(item);
     });
     const more = document.createElement("div");
     more.className = "g-more";
-    more.textContent = `+${PHOTOS.length - VISIBLE}`;
+    more.appendChild(buildIcon("ic-zoom", "icon-md"));
+    const moreLabel = document.createElement("span");
+    moreLabel.textContent = `+${PHOTOS.length - VISIBLE}`;
+    more.appendChild(moreLabel);
     more.addEventListener("click", () => {
       document.querySelectorAll(".gallery-hidden").forEach((el) => el.classList.remove("gallery-hidden"));
       more.remove();
+      initReveal();
     });
     grid.appendChild(more);
   }
@@ -193,7 +204,7 @@
     const grid = document.getElementById("amenities-grid");
     AMENITIES.forEach((cat) => {
       const div = document.createElement("div");
-      div.className = "amenity-cat";
+      div.className = "amenity-cat reveal";
       const h3 = document.createElement("h3");
       h3.className = "amenity-cat-title";
       h3.setAttribute("data-fr", cat.cat.fr);
@@ -221,7 +232,7 @@
     const wrap = document.getElementById("rating-bars");
     RATING_BARS.forEach((r) => {
       const div = document.createElement("div");
-      div.className = "rb-item";
+      div.className = "rb-item reveal";
       const label = document.createElement("span");
       label.className = "rb-label";
       label.setAttribute("data-fr", r.fr);
@@ -301,12 +312,28 @@
   function initMap() {
     if (typeof L === "undefined") return;
     const coords = [18.065794, -63.134973];
-    const map = L.map("map", { scrollWheelZoom: false }).setView(coords, 14);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; OpenStreetMap contributors',
-      maxZoom: 18
+    const map = L.map("map", { scrollWheelZoom: false, zoomControl: false }).setView(coords, 14);
+
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+      attribution: "&copy; Esri &mdash; Esri, DeLorme, NAVTEQ",
+      maxZoom: 16
     }).addTo(map);
-    L.marker(coords).addTo(map);
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}", {
+      maxZoom: 16
+    }).addTo(map);
+
+    L.control.zoom({ position: "bottomright" }).addTo(map);
+
+    L.circle(coords, { radius: 260, color: "#3f6e6a", weight: 1, fillColor: "#3f6e6a", fillOpacity: 0.08 }).addTo(map);
+
+    const pin = L.divIcon({
+      className: "map-pin",
+      html: '<span class="map-pin-dot"><svg class="icon icon-sm"><use href="images/icons.svg#ic-palm"></use></svg></span><span class="map-pin-tail"></span>',
+      iconSize: [40, 48],
+      iconAnchor: [20, 46]
+    });
+    L.marker(coords, { icon: pin }).addTo(map)
+      .bindPopup('<strong>Bungalow Serenity</strong><br>Les Terres Basses, Saint-Martin');
   }
 
   function setupNav() {
@@ -318,6 +345,25 @@
 
   function setupHero() {
     document.getElementById("hero-media").style.backgroundImage = `url('${PHOTOS[0]}')`;
+  }
+
+  let revealObserver = null;
+  function initReveal() {
+    if (!("IntersectionObserver" in window)) {
+      document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in-view"));
+      return;
+    }
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    }
+    document.querySelectorAll(".reveal:not(.in-view)").forEach((el) => revealObserver.observe(el));
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -333,5 +379,6 @@
     setupNav();
     setupLangToggle();
     applyLang();
+    initReveal();
   });
 })();
