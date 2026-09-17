@@ -144,7 +144,7 @@
   }
 
   function setupCTAs() {
-    ["cta-header", "cta-hero", "cta-final", "cta-footer"].forEach((id) => {
+    ["cta-header", "cta-header-mobile", "cta-hero", "cta-final", "cta-footer"].forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.href = AIRBNB_URL;
     });
