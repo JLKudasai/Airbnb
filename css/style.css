@@ -80,12 +80,13 @@ ul { padding: 0; margin: 0; list-style: none; }
   transition: top 0.25s ease, box-shadow 0.25s ease;
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; max-width: none; padding: 0 8px 0 20px; }
-.brand { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; }
+.brand { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 600; font-size: clamp(0.95rem, 4vw, 1.2rem); min-width: 0; flex-shrink: 1; }
+.brand-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .brand-mark { width: 24px; height: 24px; color: var(--lagoon); flex-shrink: 0; }
 .main-nav { display: flex; gap: 24px; }
 .main-nav a { font-size: 0.88rem; font-weight: 500; color: var(--ink-soft); }
 .main-nav a:hover { color: var(--accent); }
-.header-actions { display: flex; align-items: center; gap: 10px; }
+.header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .lang-toggle {
   border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 12px;
   font-size: 0.78rem; font-weight: 700; letter-spacing: 0.03em; cursor: pointer; color: var(--ink-soft);
@@ -205,7 +206,8 @@ ul { padding: 0; margin: 0; list-style: none; }
 .gallery-grid .g-more:hover { background: var(--accent-dark); }
 .gallery-grid .g-more .icon { width: 22px; height: 22px; }
 .gallery-grid .g-more span { font-weight: 600; font-size: 1.05rem; }
-@media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } .g-item img, .gallery-grid .g-more { height: 160px; } }
+@media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } .g-item img, .gallery-grid .g-more { height: 180px; } }
+@media (max-width: 600px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } .g-item img, .gallery-grid .g-more { height: 140px; } }
 .gallery-hidden { display: none !important; }
 
 /* SLEEP BLOCKS */
@@ -305,6 +307,11 @@ ul { padding: 0; margin: 0; list-style: none; }
 .cal-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .cal-nav-btn:disabled:hover { background: #fff; border-color: var(--line); }
 .cal-range-label { font-weight: 600; font-size: 0.95rem; min-width: 200px; text-align: center; text-transform: capitalize; }
+@media (max-width: 420px) {
+  .calendar-nav { gap: 8px; }
+  .cal-nav-btn { width: 34px; height: 34px; font-size: 1.1rem; flex-shrink: 0; }
+  .cal-range-label { min-width: 0; flex: 1; font-size: 0.82rem; }
+}
 .calendar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 2.4rem; }
 @media (max-width: 900px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .calendar-grid { grid-template-columns: 1fr; } }
@@ -426,6 +433,32 @@ ul { padding: 0; margin: 0; list-style: none; }
   .main-nav.open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0); }
   .nav-toggle { display: flex; }
   #cta-header { display: none; }
+}
+
+/* SMALL SCREENS — phones & folded foldables (e.g. Galaxy Fold, iPhone Fold outer screen) */
+@media (max-width: 480px) {
+  .container { padding: 0 18px; }
+  .section { padding: 60px 0; }
+  .two-col { gap: 36px; }
+  .sleep-blocks { flex-direction: column; }
+  .host-avatar { width: 80px; height: 80px; font-size: 2rem; }
+  .map-box { height: 280px; }
+  .hero h1 { font-size: clamp(2.1rem, 9vw, 3rem); }
+  .hero-content { padding-bottom: 56px; }
+  .review-card { width: 260px; padding: 16px; }
+  .rating-big { font-size: 2.2rem; }
+}
+
+@media (max-width: 380px) {
+  .header-inner { padding: 0 6px 0 12px; }
+  .header-actions { gap: 6px; }
+  .brand-name { display: none; }
+  .lang-toggle { padding: 5px 8px; font-size: 0.7rem; }
+  .badge { padding: 6px 12px; font-size: 0.78rem; }
+  .hero-cta { flex-direction: column; align-items: stretch; }
+  .hero-cta .btn, .calendar-cta .btn, .final-cta .btn {
+    white-space: normal; width: 100%; text-align: center;
+  }
 }
 
 /* LANG VISIBILITY (JS toggles textContent, this is a fallback no-op) */
